@@ -15,7 +15,7 @@ before_install:
 #  dummy travis trigger because i forgot to plug this repo into travis-ci !!!
 #  looking for the minimal i386 library set:
 #  Why not gcc-4.7-base:i386 => because travis vm is provisioned with 4.6 by default and it's good to match. 'build-essential' package dependency claim ">=4.4.3" and 4.6.3 is currently installed. Is there any generic/virtual package to get official latest???? could be nice to get rid of gcc-4.6-base package (and rely on dependency tree)
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq libstdc++6:i386 lib32z1; fi
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq libstdc++6:i386; fi
 #/usr/bin/gcc is broken after i386 installed in parallel  - gcc --version #check which is default gcc version on CUSTOMIZED travis worker
   - wget -O android-sdk.tgz http://dl.google.com/android/android-sdk_r22.0.4-linux.tgz
   - tar xzf android-sdk.tgz
