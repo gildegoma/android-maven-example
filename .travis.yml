@@ -11,6 +11,9 @@ before_install:
   # Install base Android SDK
   - sudo apt-get update -qq
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq libstdc++6:i386 lib32z1; fi
+  - sudo apt-get install -qq qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+  - sudo adduser travis kvm
+  - sudo adduser travis libvirtd
   - wget -O android-sdk.tgz http://dl.google.com/android/android-sdk_r22.0.4-linux.tgz
   - tar xzf android-sdk.tgz
   - export ANDROID_HOME=$PWD/android-sdk-linux
@@ -26,7 +29,7 @@ before_install:
 
   # Create and start emulator
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
+  - bash -l -c "emulator -avd test -no-skin -no-audio -no-window -qemu -m 1024 -enable-kvm &"
 
 before_script:
   - ./wait_for_emulator
